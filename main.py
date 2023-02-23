@@ -4,12 +4,21 @@ from selenium.common.exceptions import ElementClickInterceptedException, NoSuchE
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from time import sleep
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 FB_EMAIL = "email"
 FB_PASSWORD = "password"
 
-chrome_driver_path = Service("C:/Users/Sam/Desktop/chromedriver_win32/chromedriver.exe")
-driver = webdriver.Chrome(service=chrome_driver_path)
+# chrome_driver_path = Service("C:/Users/Sam/Desktop/chromedriver_win32/chromedriver.exe")
+chrome_path = os.getenv('chrome_path')
+if chrome_path:
+    path = Service(chrome_path)
+    driver = webdriver.Chrome(service=path)
+else:
+    driver = webdriver.Chrome()
 
 driver.get("http://www.tinder.com")
 
